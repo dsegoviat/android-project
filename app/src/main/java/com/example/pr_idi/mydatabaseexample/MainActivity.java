@@ -40,8 +40,9 @@ public class MainActivity extends ListActivity {
         setListAdapter(adapter);
 
         // set the ListView
-        addDrawerItems();
+
         mDrawerList = (ListView) findViewById(R.id.navList);
+        addDrawerItems();
         //set actions to the Navigation Drawer
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
