@@ -7,10 +7,21 @@ import java.util.Random;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends ListActivity {
     private FilmData filmData;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
+
+    private void addDrawerItems() {
+        String[] drArray = { "Home" , "Help", "About" };
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, drArray);
+        mDrawerList.setAdapter(mAdapter);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,10 +38,37 @@ public class MainActivity extends ListActivity {
         ArrayAdapter<Film> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
+
+        // set the ListView
+        addDrawerItems();
+        mDrawerList = (ListView) findViewById(R.id.navList);
+        //set actions to the Navigation Drawer
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        Toast.makeText(MainActivity.this, "Home pressed",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(MainActivity.this, "Help pressed",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(MainActivity.this, "About pressed",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                }
+
+            }
+        });
+
     }
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
+    /*
     public void onClick(View view) {
         @SuppressWarnings("unchecked")
         ArrayAdapter<Film> adapter = (ArrayAdapter<Film>) getListAdapter();
@@ -51,9 +89,10 @@ public class MainActivity extends ListActivity {
                 }
                 break;
         }
+
         adapter.notifyDataSetChanged();
     }
-
+*/
     @Override
     protected void onResume() {
         filmData.open();
