@@ -105,4 +105,9 @@ public class FilmData {
         film.setDirector(cursor.getString(2));
         return film;
     }
+
+    //TODO REMOVE
+    public void deleteAll() {
+        database.delete(MySQLiteHelper.TABLE_FILMS, null, null);
+    }
 }

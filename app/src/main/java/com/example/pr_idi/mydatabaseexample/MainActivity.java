@@ -5,22 +5,63 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.ListActivity;
+import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends AppCompatActivity {
     private FilmData filmData;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
+    private List<Film> mValues;
+    private ArrayAdapter<Film> mAdapterList;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private String mActivityTitle;
+    private ActionBar mActionBar;
+
+    private void updateList() {
+        mValues.clear();
+        mValues.addAll(filmData.getAllFilms());
+        mAdapterList.notifyDataSetChanged();
+    }
 
     private void addDrawerItems() {
         String[] drArray = { "Home" , "Help", "About" };
         mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, drArray);
         mDrawerList.setAdapter(mAdapter);
+    }
+
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                if (mActionBar != null) mActionBar.setTitle("Navigate!");
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                if (mActionBar != null) mActionBar.setTitle(mActivityTitle);
+            }
+        };
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
     @Override
@@ -31,13 +72,17 @@ public class MainActivity extends ListActivity {
         filmData = new FilmData(this);
         filmData.open();
 
-        List<Film> values = filmData.getAllFilms();
+        filmData.createFilm("Title1", "Dir1");
+        filmData.createFilm("Title2", "Dir2");
+
+        mValues = filmData.getAllFilms();
 
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
-        ArrayAdapter<Film> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
+        mAdapterList = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, mValues);
+        ListView lv = (ListView) findViewById(R.id.list);
+        lv.setAdapter(mAdapterList);
 
         // set the ListView
 
@@ -64,6 +109,27 @@ public class MainActivity extends ListActivity {
 
             }
         });
+
+        Button b = (Button) findViewById(R.id.but);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filmData.deleteAll();
+                updateList();
+                Log.d("MainActivity", "Everything was deleted");
+            }
+        });
+
+        // action bar
+
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mActivityTitle = getTitle().toString();
+        mActionBar = getSupportActionBar();
+
+        if (mActionBar != null) {
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+            mActionBar.setHomeButtonEnabled(true);
+        }
 
     }
 
@@ -104,6 +170,15 @@ public class MainActivity extends ListActivity {
     protected void onPause() {
         filmData.close();
         super.onPause();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        boolean def = super.onOptionsItemSelected(menuItem);
+        if (mDrawerToggle.onOptionsItemSelected(menuItem)) {
+            return true;
+        }
+        return def;
     }
 
 }
