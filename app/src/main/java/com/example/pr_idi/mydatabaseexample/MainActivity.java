@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private String mActivityTitle;
     private ActionBar mActionBar;
 
+    private static final boolean DEBUG = true;
+
     private void updateList() {
         mValues.clear();
         mValues.addAll(filmData.getAllFilms());
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                if (mActionBar != null) mActionBar.setTitle("Navigate!");
+                if (mActionBar != null) mActionBar.setTitle("Menu");
             }
 
             /** Called when a drawer has settled in a completely closed state. */
@@ -71,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         filmData = new FilmData(this);
         filmData.open();
+
+        if (DEBUG) filmData.deleteAll();
 
         filmData.createFilm("Title1", "Dir1");
         filmData.createFilm("Title2", "Dir2");
@@ -122,8 +126,9 @@ public class MainActivity extends AppCompatActivity {
 
         // action bar
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
+        setupDrawer();
         mActionBar = getSupportActionBar();
 
         if (mActionBar != null) {
@@ -135,31 +140,36 @@ public class MainActivity extends AppCompatActivity {
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
-    /*
     public void onClick(View view) {
-        @SuppressWarnings("unchecked")
-        ArrayAdapter<Film> adapter = (ArrayAdapter<Film>) getListAdapter();
-        Film film;
-        switch (view.getId()) {
-            case R.id.add:
-                String[] newFilm = new String[] { "Blade Runner", "Ridley Scott", "Rocky Horror Picture Show", "Jim Sharman", "The Godfather", "Francis Ford Coppola", "Toy Story", "John Lasseter" };
-                int nextInt = new Random().nextInt(4);
-                // save the new film to the database
-                film = filmData.createFilm(newFilm[nextInt*2], newFilm[nextInt*2 + 1]);
-                adapter.add(film);
-                break;
-            case R.id.delete:
-                if (getListAdapter().getCount() > 0) {
-                    film = (Film) getListAdapter().getItem(0);
-                    filmData.deleteFilm(film);
-                    adapter.remove(film);
-                }
-                break;
-        }
-
-        adapter.notifyDataSetChanged();
+//        @SuppressWarnings("unchecked")
+//        ArrayAdapter<Film> adapter = (ArrayAdapter<Film>) getListAdapter();
+//        Film film;
+//        switch (view.getId()) {
+//            case R.id.add:
+//                String[] newFilm = new String[] { "Blade Runner", "Ridley Scott", "Rocky Horror Picture Show", "Jim Sharman", "The Godfather", "Francis Ford Coppola", "Toy Story", "John Lasseter" };
+//                int nextInt = new Random().nextInt(4);
+//                // save the new film to the database
+//                film = filmData.createFilm(newFilm[nextInt*2], newFilm[nextInt*2 + 1]);
+//                adapter.add(film);
+//                break;
+//            case R.id.delete:
+//                if (getListAdapter().getCount() > 0) {
+//                    film = (Film) getListAdapter().getItem(0);
+//                    filmData.deleteFilm(film);
+//                    adapter.remove(film);
+//                }
+//                break;
+//        }
+//
+//        adapter.notifyDataSetChanged();
     }
-*/
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
     @Override
     protected void onResume() {
         filmData.open();
@@ -175,10 +185,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         boolean def = super.onOptionsItemSelected(menuItem);
-        if (mDrawerToggle.onOptionsItemSelected(menuItem)) {
-            return true;
-        }
-        return def;
+        return mDrawerToggle.onOptionsItemSelected(menuItem) || def;
     }
 
 }
