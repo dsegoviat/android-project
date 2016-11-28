@@ -1,11 +1,8 @@
 package com.example.pr_idi.mydatabaseexample;
 
 
-import java.util.List;
-import java.util.Random;
-
-import android.app.ListActivity;
-import android.database.DataSetObserver;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -14,13 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private FilmData filmData;
@@ -98,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        Toast.makeText(MainActivity.this, "Home pressed",
-                                Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), FutureMainActivity.class);
+                        startActivity(i);
                         break;
                     case 1:
                         Toast.makeText(MainActivity.this, "Help pressed",
@@ -168,6 +165,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
