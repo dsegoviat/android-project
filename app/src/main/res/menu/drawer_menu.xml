@@ -3,7 +3,7 @@
 
     <group
         android:id="@+id/group1_id"
-        android:checkableBehavior="single">
+        android:checkableBehavior="all">
             <item
                 android:id="@+id/nav_home"
                 android:icon="@drawable/ic_menu_home"
@@ -21,7 +21,7 @@
 
     <group
         android:id="@+id/group2_id"
-        android:checkableBehavior="single">
+        android:checkableBehavior="all">
             <item
                 android:id="@+id/nav_help"
                 android:icon="@drawable/ic_menu_help"
