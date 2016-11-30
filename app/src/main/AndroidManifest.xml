@@ -16,9 +16,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FutureMainActivity"
+            android:name=".BaseActivity"
             android:label="@string/title_activity_future_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainActivity2"></activity>
     </application>
 
 </manifest>

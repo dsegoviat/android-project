@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        Intent i = new Intent(getApplicationContext(), FutureMainActivity.class);
+                        Intent i = new Intent(getApplicationContext(), BaseActivity.class);
                         startActivity(i);
                         break;
                     case 1:
