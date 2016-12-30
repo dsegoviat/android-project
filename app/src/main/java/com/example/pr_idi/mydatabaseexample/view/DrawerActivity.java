@@ -1,5 +1,8 @@
 package com.example.pr_idi.mydatabaseexample.view;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -7,11 +10,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.R;
+import com.example.pr_idi.mydatabaseexample.model.FilmData;
 
 public class DrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -19,6 +25,7 @@ public class DrawerActivity extends AppCompatActivity
 
     private NavigationView mNavigationView;
     private static int mCurrentActivity = 0;
+    private FilmData filmData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +86,20 @@ public class DrawerActivity extends AppCompatActivity
         /** TEST FINISH **/
 
         mNavigationView.getMenu().getItem(mCurrentActivity).setChecked(true);
+
+        filmData = FilmData.getInstance();
+        filmData.init(this);
+        filmData.open();
+        handleIntent(getIntent());
+    }
+
+    private void handleIntent(Intent intent) {
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            //use the query to search your data somehow
+            Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -95,6 +116,10 @@ public class DrawerActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.settings_menu, menu);
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 

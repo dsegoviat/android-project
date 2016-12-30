@@ -17,6 +17,9 @@
     <string name="action_settings">Settings</string>
 
 
+    <!-- Search -->
+    <string name="search_title">Search</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="sample_text">Sample Text</string>

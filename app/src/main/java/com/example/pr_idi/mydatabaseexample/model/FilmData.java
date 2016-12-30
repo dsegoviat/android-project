@@ -4,9 +4,6 @@ package com.example.pr_idi.mydatabaseexample.model;
  * FilmData
  * Created by pr_idi on 10/11/16.
  */
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -14,7 +11,21 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
+// This class is now a Singleton
 public class FilmData {
+    private static final FilmData instance = new FilmData();
+
+    public FilmData() {
+        dbHelper = null;
+    }
+
+    public static FilmData getInstance() {
+        return instance;
+    }
+
 
     // Database fields
     private SQLiteDatabase database;
@@ -24,7 +35,7 @@ public class FilmData {
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
             MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_DIRECTOR};
 
-    public FilmData(Context context) {
+    public void init(Context context) {
         dbHelper = new MySQLiteHelper(context);
     }
 
