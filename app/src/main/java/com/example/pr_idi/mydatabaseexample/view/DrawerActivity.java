@@ -97,8 +97,10 @@ public class DrawerActivity extends AppCompatActivity
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            //use the query to search your data somehow
-            Toast.makeText(getApplicationContext(), query, Toast.LENGTH_LONG).show();
+
+            SearchResultFragment srf = new SearchResultFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.relativeLayout_fragment, srf).commit();
         }
     }
 

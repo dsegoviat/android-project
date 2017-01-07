@@ -2,12 +2,15 @@ package com.example.pr_idi.mydatabaseexample.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -46,16 +49,6 @@ public class SearchResultFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
-        mRecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
-        progressBar = (ProgressBar) getView().findViewById(R.id.progress_bar);
-        db = FilmData.getInstance();
-
-        feedsList = db.getAllFilms();
-        final LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this.getActivity());
-        mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLinearLayoutManagerVertical);
-        adapter = new RecyclerViewAdapter(this.getActivity(), feedsList);
-        mRecyclerView.setAdapter(adapter);
     }
 
     /*@Override
@@ -85,13 +78,15 @@ public class SearchResultFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (view != null) {
-            ListView listView;
-            listView = (ListView) view.findViewById(R.id.listView);
-            List<Film> films = db.getAllFilms();
-            Collections.sort(films, new FilmComparator());
-            ArrayAdapter<Film> adapter = new ArrayAdapter<>(this.getActivity(),
-                    android.R.layout.simple_list_item_1, films);
-            listView.setAdapter(adapter);
+            mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+            progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+            db = FilmData.getInstance();
+            feedsList = db.getAllFilms();
+            final LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this.getActivity());
+            mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
+            mRecyclerView.setLayoutManager(mLinearLayoutManagerVertical);
+            adapter = new RecyclerViewAdapter(this.getActivity(), feedsList);
+            mRecyclerView.setAdapter(adapter);
         }
     }
 }

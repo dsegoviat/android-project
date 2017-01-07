@@ -3,6 +3,7 @@ package com.example.pr_idi.mydatabaseexample.model;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //Setting text view title
         customViewHolder.filmTitle.setText(Html.fromHtml(film.getTitle() + " (" + film.getYear() + ")"));
         customViewHolder.filmDirector.setText(Html.fromHtml(film.getDirector()));
+        Log.d("PROTA", "Str: " + film.getTitle() + "/" + String.valueOf(film.getYear()) + "/" + film.getDirector() + "/" + film.getProtagonist() + "/" + film.getCountry() + "/" + film.getCritics_rate());
         customViewHolder.filmProtagonista.setText(Html.fromHtml(film.getProtagonist()));
         customViewHolder.filmPais.setText(Html.fromHtml(film.getCountry()));
         customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(film.getCritics_rate())));
