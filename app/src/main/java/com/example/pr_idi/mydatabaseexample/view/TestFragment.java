@@ -65,13 +65,7 @@ public class TestFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         Log.d("Hi!", "Im creating");
-        db = FilmData.getInstance();
-        //TODO REMOVE
-        db.deleteAll();
-        db.createFilm("AFilm", "Dir");
-        db.createFilm("CFilm", "Dir");
-        db.createFilm("BFilm", "Dir2");
-        //TODO REMOVE
+
 
 
     }

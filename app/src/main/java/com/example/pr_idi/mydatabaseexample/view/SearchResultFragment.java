@@ -48,12 +48,14 @@ public class SearchResultFragment extends Fragment {
         }
 
         db = FilmData.getInstance();
+        db.init(this.getActivity());
+        db.open();
 
         //TODO REMOVE
         db.deleteAll();
-        db.createFilm("AFilm", "Dir");
-        db.createFilm("CFilm", "Dir");
-        db.createFilm("BFilm", "Dir2");
+        db.createFilm("AFilm", "Dir", "Sweden", 1999, "Brad Pitt", 4);
+        db.createFilm("CFilm", "Dir", "Germany", 2002, "Nicholas Cage", 5);
+        db.createFilm("BFilm", "Dir2", "United States", 2001, "Tom Hanks", 3);
         //TODO REMOVE
     }
 

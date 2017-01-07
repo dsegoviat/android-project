@@ -17,7 +17,7 @@
         android:textColor="#444"
         android:textSize="22dp"
         android:textStyle="bold"
-        android:text="Autors de Film Manager" />
+        android:text="Autors de Film Finder" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

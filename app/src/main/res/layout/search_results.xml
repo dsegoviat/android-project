@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f1f1f1"
-    android:padding="12dp"
-    tools:context="com.example.pr_idi.mydatabaseexample.view.SearchResultsActivity">
+    tools:context="com.example.pr_idi.mydatabaseexample.view.SearchResultFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
