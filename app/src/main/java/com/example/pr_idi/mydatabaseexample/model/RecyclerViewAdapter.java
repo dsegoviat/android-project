@@ -43,12 +43,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final Film film = filmList.get(i);
 
         //Setting text view title
-        customViewHolder.filmTitle.setText(Html.fromHtml(film.getTitle() + " (" + film.getYear() + ")"));
-        customViewHolder.filmDirector.setText(Html.fromHtml(film.getDirector()));
-        Log.d("PROTA", "Str: " + film.getTitle() + "/" + String.valueOf(film.getYear()) + "/" + film.getDirector() + "/" + film.getProtagonist() + "/" + film.getCountry() + "/" + film.getCritics_rate());
-        customViewHolder.filmProtagonista.setText(Html.fromHtml(film.getProtagonist()));
-        customViewHolder.filmPais.setText(Html.fromHtml(film.getCountry()));
-        customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(film.getCritics_rate())));
+        String title = (film.getTitle() == null) ? "" : film.getTitle();
+        int year = film.getYear();
+        String director = (film.getDirector() == null) ? "" : film.getDirector();
+        String protagonist = (film.getProtagonist() == null) ? "" : film.getProtagonist();
+        String country = (film.getCountry() == null) ? "" : film.getCountry();
+        int rating = film.getCritics_rate();
+
+        customViewHolder.filmTitle.setText(Html.fromHtml(title + " (" + year+ ")"));
+        customViewHolder.filmDirector.setText(Html.fromHtml(director));
+        customViewHolder.filmProtagonista.setText(Html.fromHtml(protagonist));
+        customViewHolder.filmPais.setText(Html.fromHtml(country));
+        customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(rating) + "/5"));
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override

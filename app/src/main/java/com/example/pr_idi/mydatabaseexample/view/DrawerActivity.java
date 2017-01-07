@@ -98,7 +98,7 @@ public class DrawerActivity extends AppCompatActivity
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
-            SearchResultFragment srf = new SearchResultFragment();
+            SearchResultFragment srf = SearchResultFragment.newInstance(query);
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.relativeLayout_fragment, srf).commit();
         }
@@ -175,7 +175,9 @@ public class DrawerActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_about) {
             // type here
-
+            AboutFragment af = new AboutFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.relativeLayout_fragment, af).commit();
             mCurrentActivity = 4;
         }
 

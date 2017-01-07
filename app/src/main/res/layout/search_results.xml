@@ -21,4 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
+    <TextView
+        android:id="@+id/no_results_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No s'ha trobat cap resultat"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
 </RelativeLayout>
