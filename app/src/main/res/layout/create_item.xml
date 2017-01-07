@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1"
+    android:padding="12dp"
+    tools:context="com.example.pr_idi.mydatabaseexample.view.CreateItemActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="#444"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="Crear nova pel·lícula" />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/film_title_hint"
+        android:inputType="text"
+        android:paddingLeft="8dp"
+        android:layout_marginTop="50dp" />
+    <EditText
+        android:id="@+id/pais"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/film_country_hint"
+        android:inputType="text"
+        android:paddingLeft="8dp"
+        android:layout_marginTop="100dp"
+        />
+    <EditText
+        android:id="@+id/any"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/film_year_hint"
+        android:inputType="text"
+        android:paddingLeft="8dp"
+        android:layout_marginTop="150dp" />
+    <EditText
+        android:id="@+id/director"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/film_director_hint"
+        android:inputType="text"
+        android:paddingLeft="8dp"
+        android:layout_marginTop="200dp" />
+    <EditText
+        android:id="@+id/protagonista"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/film_protagonist_hint"
+        android:inputType="text"
+        android:paddingLeft="8dp"
+        android:layout_marginTop="250dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingLeft="8dp"
+        android:textColor="#666"
+        android:textSize="18dp"
+        android:layout_marginTop="320dp"
+        android:text="Puntuació: 0" />
+
+    <SeekBar
+        android:id="@+id/puntuacio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:max="5" >
+    </SeekBar>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="400dp"/>
+
+</RelativeLayout>

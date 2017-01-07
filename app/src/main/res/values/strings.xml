@@ -27,4 +27,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="film_title_hint">Titol</string>
+    <string name="film_director_hint">Director</string>
+    <string name="film_protagonist_hint">Protagonista</string>
+    <string name="film_country_hint">País</string>
+    <string name="film_year_hint">Any d\'estrena</string>
+
 </resources>

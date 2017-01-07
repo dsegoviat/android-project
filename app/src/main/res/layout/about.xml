@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1"
+    android:padding="12dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textColor="#444"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:text="Autors de Film Manager" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:paddingLeft="20dp"
+        android:textColor="#444"
+        android:textSize="16dp"
+        android:text="David Segovia\ndsegovia@est.fib.upc.edu"
+        android:layout_marginTop="70dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:paddingLeft="20dp"
+        android:textColor="#444"
+        android:textSize="16dp"
+        android:text="Roger Oriol Pérez\nroriol@est.fib.upc.edu"
+        android:layout_marginTop="140dp" />
+
+</RelativeLayout>
