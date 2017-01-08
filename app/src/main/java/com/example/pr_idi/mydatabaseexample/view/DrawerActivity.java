@@ -26,6 +26,7 @@ public class DrawerActivity extends AppCompatActivity
     private NavigationView mNavigationView;
     private static int mCurrentActivity = 0;
     private FilmData filmData;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,48 +44,6 @@ public class DrawerActivity extends AppCompatActivity
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
-
-
-        /** COMMENT LATER JUST TESTING **/
-        // FOR NAVIGATION VIEW ITEM TEXT COLOR
-//        int[][] state = new int[][] {
-//                new int[] {-android.R.attr.state_enabled}, // disabled
-//                new int[] {android.R.attr.state_enabled}, // enabled
-//                new int[] {-android.R.attr.state_checked}, // unchecked
-//                new int[] { android.R.attr.state_pressed}  // pressed
-//        };
-//
-//        int[] textColor = new int[] {
-//                Color.BLACK,
-//                Color.BLACK,
-//                Color.BLACK,
-//                Color.BLACK
-//        };
-//
-//        ColorStateList csl = new ColorStateList(state, textColor);
-//
-//
-//    // FOR NAVIGATION VIEW ITEM ICON COLOR
-//        int[][] states = new int[][] {
-//                new int[] {-android.R.attr.state_enabled}, // disabled
-//                new int[] {android.R.attr.state_enabled}, // enabled
-//                new int[] {-android.R.attr.state_checked}, // unchecked
-//                new int[] { android.R.attr.state_pressed}  // pressed
-//        };
-//
-//        int[] iconColor = new int[] {
-//                Color.BLACK,
-//                Color.BLACK,
-//                Color.BLACK,
-//                Color.BLACK
-//        };
-//
-//        ColorStateList csl2 = new ColorStateList(states, iconColor);
-//
-//        mNavigationView.setItemTextColor(csl);
-//        mNavigationView.setItemIconTintList(csl2);
-        /** TEST FINISH **/
-
         mNavigationView.getMenu().getItem(mCurrentActivity).setChecked(true);
 
         filmData = FilmData.getInstance();
@@ -119,6 +78,8 @@ public class DrawerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (!searchView.isIconified()) {
+            searchView.setIconified(true);
         } else {
             super.onBackPressed();
         }
@@ -130,7 +91,7 @@ public class DrawerActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.settings_menu, menu);
         getMenuInflater().inflate(R.menu.options_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
@@ -165,8 +126,6 @@ public class DrawerActivity extends AppCompatActivity
         item.setChecked(true);
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-//            uncheckAll();
-//            mNavigationView.getMenu().getItem(0).setChecked(true);
             mCurrentActivity = 0;
         } else if (id == R.id.nav_watchlist) {
             TestFragment st = new TestFragment();

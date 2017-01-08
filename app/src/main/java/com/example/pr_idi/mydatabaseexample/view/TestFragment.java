@@ -64,9 +64,7 @@ public class TestFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Log.d("Hi!", "Im creating");
-
-
+        db = FilmData.getInstance();
 
     }
 
