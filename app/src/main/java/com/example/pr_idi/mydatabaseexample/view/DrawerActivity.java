@@ -179,8 +179,9 @@ public class DrawerActivity extends AppCompatActivity
 
             mCurrentActivity = 2;
         } else if (id == R.id.nav_help) {
-            // type here
-
+            HelpFragment hf = new HelpFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.relativeLayout_fragment, hf).commit();
             mCurrentActivity = 3;
 
         } else if (id == R.id.nav_about) {
