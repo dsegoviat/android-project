@@ -90,6 +90,16 @@ public class DrawerActivity extends AppCompatActivity
         filmData = FilmData.getInstance();
         filmData.init(this);
         filmData.open();
+
+        //TODO REMOVE
+        if(filmData.getAllFilms().size() == 0) {
+            filmData.deleteAll();
+            filmData.createFilm("AFilm", "Dir", "Sweden", 1999, "Brad Pitt", 4);
+            filmData.createFilm("CFilm", "Dir", "Germany", 2002, "Nicholas Cage", 5);
+            filmData.createFilm("BFilm", "Dir2", "United States", 2001, "Tom Hanks", 3);
+        }
+        //TODO REMOVE
+
         handleIntent(getIntent());
     }
 
@@ -186,5 +196,10 @@ public class DrawerActivity extends AppCompatActivity
         return true;
     }
 
+    public void createNewFilm() {
+        CreateItemFragment cif = new CreateItemFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, cif).commit();
+    }
 
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class SearchResultFragment extends Fragment {
     private RecyclerViewAdapter adapter;
     private ProgressBar progressBar;
     private TextView noResultsFound;
+    private Button newFilmBtn;
     private FilmData db;
     private Context parentActivity;
 
@@ -55,13 +57,6 @@ public class SearchResultFragment extends Fragment {
         db = FilmData.getInstance();
         db.init(this.getActivity());
         db.open();
-
-        //TODO REMOVE
-        db.deleteAll();
-        db.createFilm("AFilm", "Dir", "Sweden", 1999, "Brad Pitt", 4);
-        db.createFilm("CFilm", "Dir", "Germany", 2002, "Nicholas Cage", 5);
-        db.createFilm("BFilm", "Dir2", "United States", 2001, "Tom Hanks", 3);
-        //TODO REMOVE
     }
 
     @Override
@@ -80,6 +75,7 @@ public class SearchResultFragment extends Fragment {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
             progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
             noResultsFound = (TextView) view.findViewById(R.id.no_results_found);
+            newFilmBtn = (Button) view.findViewById(R.id.new_film_button);
 
             getFeedsList();
 
@@ -112,10 +108,17 @@ public class SearchResultFragment extends Fragment {
                     toast.show();
                 }
             };
-
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-
             itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
+            // New film button event
+            newFilmBtn.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    ((DrawerActivity)getActivity()).createNewFilm();
+                }
+            });
         }
     }
 
