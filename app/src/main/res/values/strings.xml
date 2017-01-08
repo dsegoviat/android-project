@@ -19,6 +19,7 @@
 
     <!-- Search -->
     <string name="search_title">Search</string>
+    <string name="not_found">No results found.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -27,10 +28,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="film_title_hint">Titol</string>
+    <string name="film_title_hint">Title</string>
     <string name="film_director_hint">Director</string>
-    <string name="film_protagonist_hint">Protagonista</string>
-    <string name="film_country_hint">País</string>
-    <string name="film_year_hint">Any d\'estrena</string>
+    <string name="film_protagonist_hint">Main actor</string>
+    <string name="film_country_hint">Country</string>
+    <string name="film_year_hint">Release year</string>
 
+
+    <!-- About -->
+    <string name="authors_title">Film Finder authors</string>
+    <string name="author_david">David Segovia\ndsegovia@est.fib.upc.edu</string>
+    <string name="author_roger">Roger Oriol Pérez\nroriol@est.fib.upc.edu</string>
+
+    <!-- Help -->
+    <string name="faq">FAQ</string>
+    <string name="find_film_question">How can I find a movie?</string>
+    <string name="find_film_description">To find a film, you just have to click the search button on
+    the top right of the screen and type the title of the film you want to look for.</string>
 </resources>

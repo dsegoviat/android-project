@@ -5,35 +5,35 @@
     android:id="@+id/help">
 
     <TextView
-        android:text="FAQ"
+        android:text="@string/faq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_marginStart="33dp"
         android:layout_marginTop="38dp"
-        android:id="@+id/faq_titl"
-        android:textSize="24dp"
+        android:id="@+id/faq_title"
+        android:textSize="24sp"
         android:textStyle="normal|bold"
         android:textColor="@color/abc_input_method_navigation_guard" />
 
     <TextView
-        android:text="Com puc buscar una pel·lícula específica?"
+        android:text="@string/find_film_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/faq_titl"
-        android:layout_alignStart="@+id/faq_titl"
+        android:layout_below="@+id/faq_title"
+        android:layout_alignStart="@+id/faq_title"
         android:layout_marginTop="15dp"
         android:id="@+id/textView2"
         android:textStyle="normal|bold"
         android:textColor="#000" />
 
     <TextView
-        android:text="Per buscar una pel·lícula, tan sols has de fer clic a la lupa a la part dreta de la barra superior i escriure el nom de la pel·lícula o una part del títol."
+        android:text="@string/find_film_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
         android:layout_below="@+id/textView2"
-        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_alignStart="@+id/textView2" />
 </RelativeLayout>

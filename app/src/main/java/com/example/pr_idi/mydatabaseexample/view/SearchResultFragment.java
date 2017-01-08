@@ -132,6 +132,9 @@ public class SearchResultFragment extends Fragment {
             }
         }
         // Show if no results are found
-        if(feedsList.size() == 0) noResultsFound.setVisibility(View.VISIBLE);
+        if(feedsList.size() == 0) {
+            noResultsFound.setText("No results found for " + mParam1 + ".");
+            noResultsFound.setVisibility(View.VISIBLE);
+        }
     }
 }
