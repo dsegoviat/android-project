@@ -1,14 +1,18 @@
 package com.example.pr_idi.mydatabaseexample.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.model.*;
@@ -27,6 +31,7 @@ public class SearchResultFragment extends Fragment {
     private ProgressBar progressBar;
     private TextView noResultsFound;
     private FilmData db;
+    private Context parentActivity;
 
     public SearchResultFragment() {
 
@@ -68,28 +73,62 @@ public class SearchResultFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        parentActivity = this.getActivity();
+
         super.onViewCreated(view, savedInstanceState);
         if (view != null) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
             progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
             noResultsFound = (TextView) view.findViewById(R.id.no_results_found);
 
-            feedsList = new ArrayList<>();
-            List<Film> allFilms = db.getAllFilms();
-            for (int i = 0; i < allFilms.size(); i++) {
-                if(allFilms.get(i).getTitle().toLowerCase().contains(mParam1.toLowerCase())) {
-                    feedsList.add(allFilms.get(i));
-                }
-            }
-            if(feedsList.size() == 0) noResultsFound.setVisibility(View.VISIBLE);
+            getFeedsList();
 
+            // Set Recycler View's adapter
             final LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this.getActivity());
             mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
             mRecyclerView.setLayoutManager(mLinearLayoutManagerVertical);
-            adapter = new RecyclerViewAdapter(this.getActivity(), feedsList);
+            adapter = new RecyclerViewAdapter(parentActivity, feedsList);
             mRecyclerView.setAdapter(adapter);
 
+            // Hide progressbar once films are loaded
             progressBar.setVisibility(View.GONE);
+
+            // Define event for swiping a film (deleting it)
+            ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                    //Remove swiped item from list and notify the RecyclerView
+                    db.deleteFilm(feedsList.get(viewHolder.getLayoutPosition()));
+                    getFeedsList();
+                    adapter.notifyItemRemoved(viewHolder.getLayoutPosition());
+                    adapter.refreshFilmsList(feedsList);
+
+                    Toast toast = Toast.makeText(parentActivity, "Deleted item", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            };
+
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+
+            itemTouchHelper.attachToRecyclerView(mRecyclerView);
         }
+    }
+
+    private void getFeedsList() {
+        // Filter the elements by the given query
+        feedsList = new ArrayList<>();
+        List<Film> allFilms = db.getAllFilms();
+        for (int i = 0; i < allFilms.size(); i++) {
+            if(allFilms.get(i).getTitle().toLowerCase().contains(mParam1.toLowerCase())) {
+                feedsList.add(allFilms.get(i));
+            }
+        }
+        // Show if no results are found
+        if(feedsList.size() == 0) noResultsFound.setVisibility(View.VISIBLE);
     }
 }

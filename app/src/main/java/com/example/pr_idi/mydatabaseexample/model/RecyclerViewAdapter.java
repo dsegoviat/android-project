@@ -22,15 +22,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mContext = context;
     }
 
-    private OnItemClickListener onItemClickListener;
-    public OnItemClickListener getOnItemClickListener() {
-        return onItemClickListener;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.search_results_item, null);
@@ -55,19 +46,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         customViewHolder.filmProtagonista.setText(Html.fromHtml(protagonist));
         customViewHolder.filmPais.setText(Html.fromHtml(country));
         customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(rating) + "/5"));
-
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickListener.onItemClick(film);
-            }
-        };
-        customViewHolder.filmTitle.setOnClickListener(listener);
     }
 
     @Override
     public int getItemCount() {
         return (null != filmList ? filmList.size() : 0);
+    }
+
+    public void refreshFilmsList(List<Film> l) {
+        filmList = l;
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
