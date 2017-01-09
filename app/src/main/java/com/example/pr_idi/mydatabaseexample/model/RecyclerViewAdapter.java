@@ -76,16 +76,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public void onItemRemove(final int position, final RecyclerView recyclerView, final FilmData db) {
-        final Film mFilm = filmList.get(position);
+        final Film film = filmList.get(position);
+        db.deleteFilm(film);
         Snackbar snackbar = Snackbar
-                .make(recyclerView, "Film " + mFilm.getTitle() + " removed", Snackbar.LENGTH_LONG)
+                .make(recyclerView, "Film " + film.getTitle() + " removed", Snackbar.LENGTH_LONG)
                 .setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        filmList.add(position, mFilm);
+                        filmList.add(position, film);
                         notifyItemInserted(position);
                         recyclerView.scrollToPosition(position);
-                        db.createFilm(mFilm.getTitle(), mFilm.getDirector(), mFilm.getCountry(), mFilm.getYear(), mFilm.getProtagonist(), mFilm.getCritics_rate());
+                        String deb = Long.toString(film.getId());
+                        Log.d("Inserted film ", film.getTitle() + ". id: " + deb);
+                        db.createFilm(film.getTitle(), film.getDirector(), film.getCountry(),
+                                film.getYear(), film.getProtagonist(), film.getCritics_rate());
                     }
                 });
         snackbar.show();

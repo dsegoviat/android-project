@@ -99,9 +99,9 @@ public class SearchResultFragment extends Fragment {
                 @Override
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                     //Remove swiped item from list and notify the RecyclerView
-                    db.deleteFilm(feedsList.get(viewHolder.getLayoutPosition()));
+                    Log.d("Position", Integer.toString(viewHolder.getLayoutPosition()));
                     adapter.onItemRemove(viewHolder.getLayoutPosition(), mRecyclerView, db);
-                    getFeedsList();
+                    //getFeedsList();
                     adapter.refreshFilmsList(feedsList);
 
                     Toast toast = Toast.makeText(parentActivity, "Deleted item", Toast.LENGTH_SHORT);
