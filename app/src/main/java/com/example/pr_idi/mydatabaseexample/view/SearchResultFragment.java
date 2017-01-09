@@ -19,6 +19,8 @@ import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.model.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SearchResultFragment extends Fragment {
@@ -134,5 +136,14 @@ public class SearchResultFragment extends Fragment {
             noResultsFound.setText("No results found for " + mParam1 + ".");
             noResultsFound.setVisibility(View.VISIBLE);
         }
+
+        // Sort by year
+        Collections.sort(feedsList, new Comparator<Film>() {
+            @Override
+            public int compare(Film f1, Film f2) {
+                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                return f1.getYear()-f2.getYear();
+            }
+        });
     }
 }
