@@ -126,6 +126,9 @@ public class DrawerActivity extends AppCompatActivity
         item.setChecked(true);
         int id = item.getItemId();
         if (id == R.id.nav_home) {
+            BasicFragment bf = new BasicFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.relativeLayout_fragment, bf).commit();
             mCurrentActivity = 0;
         } else if (id == R.id.nav_watchlist) {
             TestFragment st = new TestFragment();

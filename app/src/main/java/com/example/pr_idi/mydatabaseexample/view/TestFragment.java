@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.model.Film;
-import com.example.pr_idi.mydatabaseexample.model.FilmComparator;
+import com.example.pr_idi.mydatabaseexample.model.FilmComparatorTitle;
 import com.example.pr_idi.mydatabaseexample.model.FilmData;
 
 import java.util.Collections;
@@ -83,7 +83,7 @@ public class TestFragment extends Fragment {
             ListView listView;
             listView = (ListView) view.findViewById(R.id.listView);
             List<Film> films = db.getAllFilms();
-            Collections.sort(films, new FilmComparator());
+            Collections.sort(films, new FilmComparatorTitle());
             ArrayAdapter<Film> adapter = new ArrayAdapter<>(this.getActivity(),
                     android.R.layout.simple_list_item_1, films);
             listView.setAdapter(adapter);

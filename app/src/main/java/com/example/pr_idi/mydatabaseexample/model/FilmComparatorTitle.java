@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * @author dsegoviat
  */
-public class FilmComparator implements Comparator {
+public class FilmComparatorTitle implements Comparator {
 
     @Override
     public int compare(Object left, Object right) {
