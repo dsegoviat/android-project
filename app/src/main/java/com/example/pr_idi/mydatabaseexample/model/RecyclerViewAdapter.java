@@ -1,6 +1,7 @@
 package com.example.pr_idi.mydatabaseexample.model;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
@@ -72,5 +73,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.filmPais = (TextView) view.findViewById(R.id.pais);
             this.filmPuntuacio = (TextView) view.findViewById(R.id.puntuacio);
         }
+    }
+
+    public void onItemRemove(final int position, final RecyclerView recyclerView, final FilmData db) {
+        final Film mFilm = filmList.get(position);
+        Snackbar snackbar = Snackbar
+                .make(recyclerView, "Film " + mFilm.getTitle() + " removed", Snackbar.LENGTH_LONG)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        filmList.add(position, mFilm);
+                        notifyItemInserted(position);
+                        recyclerView.scrollToPosition(position);
+                        db.createFilm(mFilm.getTitle(), mFilm.getDirector(), mFilm.getCountry(), mFilm.getYear(), mFilm.getProtagonist(), mFilm.getCritics_rate());
+                    }
+                });
+        snackbar.show();
+        filmList.remove(position);
+        notifyItemRemoved(position);
     }
 }

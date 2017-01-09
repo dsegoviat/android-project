@@ -55,8 +55,6 @@ public class SearchResultFragment extends Fragment {
         }
 
         db = FilmData.getInstance();
-        db.init(this.getActivity());
-        db.open();
     }
 
     @Override
@@ -67,7 +65,7 @@ public class SearchResultFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         parentActivity = this.getActivity();
 
         super.onViewCreated(view, savedInstanceState);
@@ -100,11 +98,11 @@ public class SearchResultFragment extends Fragment {
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                     //Remove swiped item from list and notify the RecyclerView
                     db.deleteFilm(feedsList.get(viewHolder.getLayoutPosition()));
+                    adapter.onItemRemove(viewHolder.getLayoutPosition(), mRecyclerView, db);
                     getFeedsList();
-                    adapter.notifyItemRemoved(viewHolder.getLayoutPosition());
                     adapter.refreshFilmsList(feedsList);
 
-                    Toast toast = Toast.makeText(parentActivity, "Deleted item", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(parentActivity, "Deleted item", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             };
