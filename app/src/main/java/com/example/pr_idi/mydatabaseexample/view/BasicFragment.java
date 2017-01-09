@@ -105,7 +105,7 @@ public class BasicFragment extends Fragment {
                     Film film = feedsList.get(viewHolder.getLayoutPosition());
                     db.deleteFilm(film);
                     adapter.onItemRemove(viewHolder.getLayoutPosition(), mRecyclerView, db);
-                    getFeedsList();
+                    //getFeedsList();
                     adapter.refreshFilmsList(feedsList);
 
                     Toast toast = Toast.makeText(parentActivity, "Deleted item", Toast.LENGTH_SHORT);
