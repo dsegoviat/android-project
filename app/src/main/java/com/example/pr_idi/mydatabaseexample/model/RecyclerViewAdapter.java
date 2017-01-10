@@ -20,10 +20,12 @@ import com.example.pr_idi.mydatabaseexample.view.DrawerActivity;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder> {
     private List<Film> filmList;
     private Context mContext;
+    private boolean showWatchlistBtn;
 
-    public RecyclerViewAdapter(Context context, List<Film> filmList) {
+    public RecyclerViewAdapter(Context context, List<Film> filmList, boolean swb) {
         this.filmList = filmList;
         this.mContext = context;
+        this.showWatchlistBtn = swb;
     }
 
     @Override
@@ -51,15 +53,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         customViewHolder.filmPais.setText(Html.fromHtml(country));
         customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(rating) + "/5"));
 
-        customViewHolder.addToWatchlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((DrawerActivity)mContext).addToWatchlist(film);
+        if(showWatchlistBtn) {
+            customViewHolder.addToWatchlist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((DrawerActivity) mContext).addToWatchlist(film);
 
-                Toast toast = Toast.makeText(mContext, "Film removed from watchlist", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+                    Toast toast = Toast.makeText(mContext, "Film added to watchlist", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+        } else {
+            customViewHolder.addToWatchlist.setVisibility(View.GONE);
+        }
     }
 
     @Override

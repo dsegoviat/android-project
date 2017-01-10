@@ -60,7 +60,7 @@ public class WatchlistFragment extends BasicFragment {
             final LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this.getActivity());
             mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
             mRecyclerView.setLayoutManager(mLinearLayoutManagerVertical);
-            adapter = new RecyclerViewAdapter(parentActivity, savedFilms);
+            adapter = new RecyclerViewAdapter(parentActivity, savedFilms, showAddToWatchlistBtn());
             mRecyclerView.setAdapter(adapter);
 
             // Define event for swiping a film (deleting it)
@@ -84,5 +84,10 @@ public class WatchlistFragment extends BasicFragment {
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
             itemTouchHelper.attachToRecyclerView(mRecyclerView);
         }
+    }
+
+    @Override
+    protected boolean showAddToWatchlistBtn() {
+        return false;
     }
 }

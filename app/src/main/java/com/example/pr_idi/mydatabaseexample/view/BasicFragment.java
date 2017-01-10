@@ -3,6 +3,7 @@ package com.example.pr_idi.mydatabaseexample.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -90,11 +92,14 @@ public class BasicFragment extends Fragment {
             final LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this.getActivity());
             mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
             mRecyclerView.setLayoutManager(mLinearLayoutManagerVertical);
-            adapter = new RecyclerViewAdapter(parentActivity, feedsList);
+            adapter = new RecyclerViewAdapter(parentActivity, feedsList, showAddToWatchlistBtn());
             mRecyclerView.setAdapter(adapter);
 
             // Hide progressbar once films are loaded
             mProgressBar.setVisibility(View.GONE);
+
+            // Hide add to watchlist button if we are in watchlist view
+
 
             // Define event for swiping a film (deleting it)
             ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -141,6 +146,10 @@ public class BasicFragment extends Fragment {
     public void onStop() {
         if(noResultsFound != null) noResultsFound.setVisibility(View.GONE);
         super.onStop();
+    }
+
+    protected boolean showAddToWatchlistBtn() {
+        return true;
     }
 
 }
