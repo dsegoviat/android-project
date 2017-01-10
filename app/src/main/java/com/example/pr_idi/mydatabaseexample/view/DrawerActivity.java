@@ -156,7 +156,7 @@ public class DrawerActivity extends AppCompatActivity
     public void createNewFilm() {
         CreateItemFragment cif = new CreateItemFragment();
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.relativeLayout_fragment, cif).commit();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, cif).addToBackStack("home").commit();
     }
 
     public List<Film> getWatchlist() {
