@@ -28,6 +28,8 @@ public class CreateItemFragment extends Fragment {
     private TextView ratingText;
     private Button sendButton;
 
+    //BIG TODO: onBackPresed close fragment
+
     public CreateItemFragment() {
 
     }
