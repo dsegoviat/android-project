@@ -56,6 +56,8 @@ public class WatchlistFragment extends BasicFragment {
 
             savedFilms = ((DrawerActivity)getActivity()).getWatchlist();
 
+            if(savedFilms.size() == 0) noSavedFilms.setVisibility(View.VISIBLE);
+
             // Set Recycler View's adapter
             final LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this.getActivity());
             mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
@@ -76,6 +78,7 @@ public class WatchlistFragment extends BasicFragment {
                     ((DrawerActivity)getActivity()).removeFromWatchlist(savedFilms.get(viewHolder.getLayoutPosition()));
                     savedFilms = ((DrawerActivity)getActivity()).getWatchlist();
                     adapter.refreshFilmsList(savedFilms);
+                    if(savedFilms.size() == 0) noSavedFilms.setVisibility(View.VISIBLE);
 
                     Toast toast = Toast.makeText(parentActivity, "Removed item from watchlist", Toast.LENGTH_SHORT);
                     toast.show();
