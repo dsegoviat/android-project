@@ -129,7 +129,7 @@ public class BasicFragment extends Fragment {
 
     @Override
     public void onStop() {
-        noResultsFound.setVisibility(View.GONE);
+        if(noResultsFound != null) noResultsFound.setVisibility(View.GONE);
         super.onStop();
     }
 

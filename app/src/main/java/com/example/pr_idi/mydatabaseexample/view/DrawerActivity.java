@@ -20,6 +20,7 @@ import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.model.Film;
 import com.example.pr_idi.mydatabaseexample.model.FilmData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DrawerActivity extends AppCompatActivity
@@ -30,7 +31,7 @@ public class DrawerActivity extends AppCompatActivity
     private static int mCurrentActivity = 0;
     private FilmData filmData;
     private SearchView searchView;
-    private List<Film> watchlist;
+    private List<Film> watchlist = new ArrayList<>();
     private static boolean firstStart = true;
 
     @Override
