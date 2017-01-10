@@ -135,15 +135,11 @@ public class DrawerActivity extends AppCompatActivity
             manager.beginTransaction().replace(R.id.relativeLayout_fragment, bf).commit();
             mCurrentActivity = 0;
         } else if (id == R.id.nav_watchlist) {
-            TestFragment st = new TestFragment();
+            WatchlistFragment wf = new WatchlistFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.relativeLayout_fragment, st).commit();
+            manager.beginTransaction().replace(R.id.relativeLayout_fragment, wf).commit();
 
             mCurrentActivity = 1;
-        } else if (id == R.id.nav_favs) {
-            // type here
-
-            mCurrentActivity = 2;
         } else if (id == R.id.nav_help) {
             HelpFragment hf = new HelpFragment();
             FragmentManager manager = getSupportFragmentManager();
@@ -167,6 +163,24 @@ public class DrawerActivity extends AppCompatActivity
         CreateItemFragment cif = new CreateItemFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.relativeLayout_fragment, cif).commit();
+    }
+
+    public List<Film> getWatchlist() {
+        return watchlist;
+    }
+
+    public List<Film> addToWatchlist(Film film) {
+        watchlist.add(film);
+        return watchlist;
+    }
+
+    public List<Film> removeFromWatchlist(Film film) {
+        for (int i = 0; i < watchlist.size(); i++) {
+            if(watchlist.get(i).getId() == film.getId()) {
+                watchlist.remove(i);
+            }
+        }
+        return watchlist;
     }
 
 }

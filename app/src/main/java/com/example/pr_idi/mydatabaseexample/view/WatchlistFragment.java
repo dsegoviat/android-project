@@ -22,7 +22,7 @@ import java.util.List;
  * Created by rogia on 09/01/17.
  */
 
-public class WatchlistFragment extends Fragment {
+public class WatchlistFragment extends BasicFragment {
 
     private List<Film> savedFilms;
     private RecyclerView mRecyclerView;
@@ -40,11 +40,6 @@ public class WatchlistFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -55,13 +50,11 @@ public class WatchlistFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         parentActivity = this.getActivity();
 
-        super.onViewCreated(view, savedInstanceState);
         if (view != null) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
             noSavedFilms = (TextView) view.findViewById(R.id.no_saved_films);
 
-            ((DrawerActivity)getActivity()).createNewFilm();
-            //getFeedsList();
+            savedFilms = ((DrawerActivity)getActivity()).getWatchlist();
 
             // Set Recycler View's adapter
             final LinearLayoutManager mLinearLayoutManagerVertical = new LinearLayoutManager(this.getActivity());
@@ -80,12 +73,11 @@ public class WatchlistFragment extends Fragment {
                 @Override
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                     //Remove swiped item from list and notify the RecyclerView
-                    /*db.deleteFilm(feedsList.get(viewHolder.getLayoutPosition()));
-                    adapter.onItemRemove(viewHolder.getLayoutPosition(), mRecyclerView, db);
-                    getFeedsList();
-                    adapter.refreshFilmsList(feedsList);*/
+                    ((DrawerActivity)getActivity()).removeFromWatchlist(savedFilms.get(viewHolder.getLayoutPosition()));
+                    savedFilms = ((DrawerActivity)getActivity()).getWatchlist();
+                    adapter.refreshFilmsList(savedFilms);
 
-                    Toast toast = Toast.makeText(parentActivity, "Deleted item", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(parentActivity, "Removed item from watchlist", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             };
