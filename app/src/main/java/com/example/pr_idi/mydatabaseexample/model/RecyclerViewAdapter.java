@@ -8,11 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import com.example.pr_idi.mydatabaseexample.R;
+import com.example.pr_idi.mydatabaseexample.view.DrawerActivity;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder> {
     private List<Film> filmList;
@@ -47,6 +50,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         customViewHolder.filmProtagonista.setText(Html.fromHtml(protagonist));
         customViewHolder.filmPais.setText(Html.fromHtml(country));
         customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(rating) + "/5"));
+
+        customViewHolder.addToWatchlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((DrawerActivity)mContext).addToWatchlist(film);
+
+                Toast toast = Toast.makeText(mContext, "Film removed from watchlist", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     @Override
@@ -64,6 +77,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         protected TextView filmProtagonista;
         protected TextView filmPais;
         protected TextView filmPuntuacio;
+        protected ImageButton addToWatchlist;
 
         public CustomViewHolder(View view) {
             super(view);
@@ -72,6 +86,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.filmProtagonista = (TextView) view.findViewById(R.id.protagonista);
             this.filmPais = (TextView) view.findViewById(R.id.pais);
             this.filmPuntuacio = (TextView) view.findViewById(R.id.puntuacio);
+            this.addToWatchlist = (ImageButton) view.findViewById(R.id.add_watchlist);
         }
     }
 
