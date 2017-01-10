@@ -35,10 +35,7 @@ public class CreateItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         db = FilmData.getInstance();
-        db.init(this.getActivity());
-        db.open();
     }
 
     @Override

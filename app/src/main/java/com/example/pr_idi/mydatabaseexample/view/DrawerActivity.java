@@ -50,14 +50,14 @@ public class DrawerActivity extends AppCompatActivity
         filmData.init(this);
         filmData.open();
 
-        //TODO REMOVE
+        //TODO
         if(filmData.getAllFilms().size() == 0) {
             filmData.deleteAll();
             filmData.createFilm("AFilm", "Dir", "Sweden", 1999, "Brad Pitt", 4);
             filmData.createFilm("CFilm", "Dir", "Germany", 2002, "Nicholas Cage", 5);
             filmData.createFilm("BFilm", "Dir2", "United States", 2001, "Tom Hanks", 3);
         }
-        //TODO REMOVE
+        //TODO
 
         handleIntent(getIntent());
     }

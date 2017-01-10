@@ -75,25 +75,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public void onItemRemove(final int position, final RecyclerView recyclerView, final FilmData db) {
-        final Film film = filmList.get(position);
-        db.deleteFilm(film);
+    public void onItemRemove(final int position, final RecyclerView recyclerView, final FilmData db, final Film film) {
         Snackbar snackbar = Snackbar
                 .make(recyclerView, "Film " + film.getTitle() + " removed", Snackbar.LENGTH_LONG)
                 .setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        filmList.add(position, film);
+                        Film newFilm = db.createFilm(film.getTitle(), film.getDirector(), film.getCountry(),
+                                film.getYear(), film.getProtagonist(), film.getCritics_rate());
+                        filmList.add(position, newFilm);
                         notifyItemInserted(position);
                         recyclerView.scrollToPosition(position);
-                        String deb = Long.toString(film.getId());
-                        Log.d("Inserted film ", film.getTitle() + ". id: " + deb);
-                        db.createFilm(film.getTitle(), film.getDirector(), film.getCountry(),
-                                film.getYear(), film.getProtagonist(), film.getCritics_rate());
+                        Log.d("Inserted film ", newFilm.getTitle() + ". id: " + Long.toString(newFilm.getId()));
                     }
                 });
         snackbar.show();
-        filmList.remove(position);
         notifyItemRemoved(position);
     }
 }

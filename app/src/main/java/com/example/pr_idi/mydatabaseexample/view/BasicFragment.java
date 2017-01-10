@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +24,6 @@ import com.example.pr_idi.mydatabaseexample.model.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -43,6 +43,7 @@ public class BasicFragment extends Fragment {
     protected TextView noResultsFound;
     protected FilmData db;
     protected Context parentActivity;
+
 
     public BasicFragment() {
 
@@ -104,21 +105,13 @@ public class BasicFragment extends Fragment {
                 @Override
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                     //Remove swiped item from list and notify the RecyclerView
-                    Film film = feedsList.get(viewHolder.getLayoutPosition());
+                    int position = viewHolder.getLayoutPosition();
+                    Film film = feedsList.get(position);
+                    feedsList.remove(position);
                     db.deleteFilm(film);
-                    adapter.onItemRemove(viewHolder.getLayoutPosition(), mRecyclerView, db);
+                    adapter.onItemRemove(position, mRecyclerView, db, film);
                     //getFeedsList();
                     adapter.refreshFilmsList(feedsList);
-
-                    Toast toast = Toast.makeText(parentActivity, "Deleted item", Toast.LENGTH_SHORT);
-                    toast.show();
-
-                    /* DEBUG */
-                    for (int i = 0; i < feedsList.size(); i++) {
-                        Log.d(Integer.toString(i), feedsList.get(i).getTitle());
-                    }
-                    /* DEBUG */
-
                 }
             };
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
