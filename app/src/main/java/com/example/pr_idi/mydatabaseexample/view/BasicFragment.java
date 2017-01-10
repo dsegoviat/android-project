@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +24,6 @@ import com.example.pr_idi.mydatabaseexample.model.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -33,27 +34,28 @@ public class BasicFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
 
-    private String mParam1;
+    protected String mParam1;
 
-    private List<Film> feedsList;
-    private RecyclerView mRecyclerView;
-    private RecyclerViewAdapter adapter;
-    private ProgressBar mProgressBar;
-    private TextView noResultsFound;
-    private FilmData db;
-    private Context parentActivity;
+    protected List<Film> feedsList;
+    protected RecyclerView mRecyclerView;
+    protected RecyclerViewAdapter adapter;
+    protected ProgressBar mProgressBar;
+    protected TextView noResultsFound;
+    protected FilmData db;
+    protected Context parentActivity;
+
 
     public BasicFragment() {
 
     }
 
-    public static BasicFragment newInstance(String param1) {
-        BasicFragment fragment = new BasicFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static BasicFragment newInstance(String param1) {
+//        BasicFragment fragment = new BasicFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class BasicFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
         }
         db = FilmData.getInstance();
+        feedsList = new ArrayList<>();
     }
 
     @Override
@@ -102,14 +105,13 @@ public class BasicFragment extends Fragment {
                 @Override
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                     //Remove swiped item from list and notify the RecyclerView
-                    Film film = feedsList.get(viewHolder.getLayoutPosition());
+                    int position = viewHolder.getLayoutPosition();
+                    Film film = feedsList.get(position);
+                    feedsList.remove(position);
                     db.deleteFilm(film);
-                    adapter.onItemRemove(viewHolder.getLayoutPosition(), mRecyclerView, db);
-                    getFeedsList();
+                    adapter.onItemRemove(position, mRecyclerView, db, film);
+                    //getFeedsList();
                     adapter.refreshFilmsList(feedsList);
-
-                    Toast toast = Toast.makeText(parentActivity, "Deleted item", Toast.LENGTH_SHORT);
-                    toast.show();
                 }
             };
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
@@ -119,9 +121,16 @@ public class BasicFragment extends Fragment {
 
     protected void getFeedsList() {
         // Filter the elements by the given query
-        feedsList = db.getAllFilms();
+        feedsList.clear();
+        feedsList.addAll(db.getAllFilms());
         // Sort by year
         Collections.sort(feedsList, new FilmComparatorTitle());
+    }
+
+    @Override
+    public void onStop() {
+        noResultsFound.setVisibility(View.GONE);
+        super.onStop();
     }
 
 }

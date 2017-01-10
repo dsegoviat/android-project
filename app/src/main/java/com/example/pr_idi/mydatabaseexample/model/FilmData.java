@@ -14,6 +14,10 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.country;
+import static android.R.attr.rating;
+import static com.example.pr_idi.mydatabaseexample.R.id.director;
+
 // This class is now a Singleton
 public class FilmData {
     private static final FilmData instance = new FilmData();
@@ -79,7 +83,32 @@ public class FilmData {
         // Do not forget to close the cursor
         cursor.close();
 
-        // Return the book
+        // Return the film
+        return newFilm;
+    }
+
+    public Film restoreFilm(Film film) {
+        ContentValues values = new ContentValues();
+        Log.d("Creating", "Creating " + film.getTitle() + " " + film.getDirector());
+
+        // Add data: Note that this method only provides title and director
+        // Must modify the method to add the full data
+        values.put(MySQLiteHelper.COLUMN_TITLE, film.getTitle());
+        values.put(MySQLiteHelper.COLUMN_DIRECTOR, film.getDirector());
+        values.put(MySQLiteHelper.COLUMN_COUNTRY, film.getCountry());
+        values.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, film.getYear());
+        values.put(MySQLiteHelper.COLUMN_PROTAGONIST, film.getProtagonist());
+        values.put(MySQLiteHelper.COLUMN_CRITICS_RATE, film.getCritics_rate());
+
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS,
+                allColumns, MySQLiteHelper.COLUMN_ID + " = " + film.getId(), null,
+                null, null, null);
+        cursor.moveToFirst();
+        Film newFilm = cursorToFilm(cursor);
+
+        // Do not forget to close the cursor
+        cursor.close();
+
         return newFilm;
     }
 
@@ -108,7 +137,6 @@ public class FilmData {
     }
 
     private Film cursorToFilm(Cursor cursor) {
-
         Film film = new Film();
         film.setId(cursor.getLong(0));
         film.setTitle(cursor.getString(1));
