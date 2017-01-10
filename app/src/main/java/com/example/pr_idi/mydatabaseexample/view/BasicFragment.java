@@ -3,6 +3,7 @@ package com.example.pr_idi.mydatabaseexample.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,7 +44,7 @@ public class BasicFragment extends Fragment {
     protected TextView noResultsFound;
     protected FilmData db;
     protected Context parentActivity;
-
+    protected FloatingActionButton mFAB;
 
     public BasicFragment() {
 
@@ -116,6 +117,15 @@ public class BasicFragment extends Fragment {
             };
             ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
             itemTouchHelper.attachToRecyclerView(mRecyclerView);
+
+            mFAB = (FloatingActionButton) view.findViewById(R.id.fab);
+            mFAB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((DrawerActivity)getActivity()).createNewFilm();
+                }
+            });
+
         }
     }
 

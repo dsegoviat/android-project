@@ -7,7 +7,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="menu_home">Home</string>
     <string name="menu_watchlist">Watchlist</string>
-    <string name="menu_favs">Favorites</string>
+    <string name="menu_add">Add film</string>
     <string name="menu_help">Help</string>
     <string name="menu_about">About</string>
     <string name="user_name">Name</string>
@@ -45,4 +45,5 @@
     <string name="find_film_question">How can I find a movie?</string>
     <string name="find_film_description">To find a film, you just have to click the search button on
     the top right of the screen and type the title of the film you want to look for.</string>
+    <string name="title_activity_delete_me">DeleteMe</string>
 </resources>
