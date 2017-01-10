@@ -45,5 +45,16 @@
     <string name="find_film_question">How can I find a movie?</string>
     <string name="find_film_description">To find a film, you just have to click the search button on
     the top right of the screen and type the title of the film you want to look for.</string>
+    <string name="add_film_question">How can I add a film to the database?</string>
+    <string name="add_film_description">You can access the creation form to add a film to the database by
+    clicking "Add film" on the navigation drawer or by clicking the red button with a plus on the bottom right
+    of your screen. There you will have to introduce the characteristics of the film like title, director, protagonist, year of release and rating.</string>
+    <string name="remove_film_question">How can I remove a film from the database?</string>
+    <string name="remove_film_description">You can delete any desired film by searching it and swiping it either right or left.</string>
+    <string name="recover_film_question">Can I recover a film after removing it?</string>
+    <string name="recover_film_answer">You can, but just for a few moments after deleting it. A snackbar will appear at the bottom of the screen giving the option of undoing your action.</string>
+    <string name="save_film_question">Can I save a film of my interest and access it later?</string>
+    <string name="save_film_answer">Yes. Whenever you find a film you want to save, you can tap the heart button on its right, under the rating, to save it to your watchlist.
+    You can then access to your watchlist by clicking it on the navigation drawer menu. You can also remove a film from your watchlist by swiping it right or left on your watchlist.</string>
     <string name="title_activity_delete_me">DeleteMe</string>
 </resources>
