@@ -12,10 +12,6 @@
                 android:id="@+id/nav_watchlist"
                 android:icon="@drawable/ic_menu_list"
                 android:title="@string/menu_watchlist" />
-            <item
-                android:id="@+id/nav_favs"
-                android:icon="@drawable/ic_menu_fav"
-                android:title="@string/menu_favs" />
 
     </group>
 

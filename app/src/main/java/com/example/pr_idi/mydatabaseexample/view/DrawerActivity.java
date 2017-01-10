@@ -141,22 +141,18 @@ public class DrawerActivity extends AppCompatActivity
             manager.beginTransaction().replace(R.id.relativeLayout_fragment, st).commit();
 
             mCurrentActivity = 1;
-        } else if (id == R.id.nav_favs) {
-            // type here
-
-            mCurrentActivity = 2;
         } else if (id == R.id.nav_help) {
             HelpFragment hf = new HelpFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.relativeLayout_fragment, hf).commit();
-            mCurrentActivity = 3;
+            mCurrentActivity = 2;
 
         } else if (id == R.id.nav_about) {
             // type here
             AboutFragment af = new AboutFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.relativeLayout_fragment, af).commit();
-            mCurrentActivity = 4;
+            mCurrentActivity = 3;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
