@@ -84,15 +84,27 @@ public class CreateItemFragment extends Fragment {
             sendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    db.createFilm(  titleInput.getText().toString(),
-                                    directorInput.getText().toString(),
-                                    countryInput.getText().toString(),
-                                    Integer.parseInt(yearInput.getText().toString()),
-                                    protagonistInput.getText().toString(),
-                                    ratingBar.getProgress());
+                    if(titleInput.getText() == null || titleInput.getText().toString().equals("") ||
+                       directorInput.getText() == null || directorInput.getText().toString().equals("") ||
+                       countryInput.getText() == null || countryInput.getText().toString().equals("") ||
+                       yearInput.getText() == null || yearInput.getText().toString().equals("") ||
+                       protagonistInput.getText() == null || protagonistInput.getText().toString().equals("")) {
 
-                    Toast toast = Toast.makeText(parentActivity, "Film added successfully", Toast.LENGTH_SHORT);
-                    toast.show();
+                        Toast toast = Toast.makeText(parentActivity, "Missing field, please fill it first", Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        db.createFilm(  titleInput.getText().toString(),
+                                directorInput.getText().toString(),
+                                countryInput.getText().toString(),
+                                Integer.parseInt(yearInput.getText().toString()),
+                                protagonistInput.getText().toString(),
+                                ratingBar.getProgress());
+
+                        Toast toast = Toast.makeText(parentActivity, "Film added successfully", Toast.LENGTH_SHORT);
+                        toast.show();
+
+                        ((DrawerActivity)getActivity()).navigateHome();
+                    }
                 }
             });
         }

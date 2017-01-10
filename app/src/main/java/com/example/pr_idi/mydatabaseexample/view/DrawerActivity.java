@@ -135,31 +135,17 @@ public class DrawerActivity extends AppCompatActivity
         item.setChecked(true);
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            BasicFragment bf = new BasicFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.relativeLayout_fragment, bf).commit();
-            mCurrentActivity = 0;
+            navigateHome();
         } else if (id == R.id.nav_watchlist) {
-            WatchlistFragment wf = new WatchlistFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.relativeLayout_fragment, wf).commit();
-
-            mCurrentActivity = 1;
+            navigateWatchlist();
         } else if (id == R.id.nav_add) {
             mNavigationView.getMenu().getItem(mCurrentActivity).setChecked(true);
             createNewFilm();
         } else if (id == R.id.nav_help) {
-            HelpFragment hf = new HelpFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.relativeLayout_fragment, hf).commit();
-            mCurrentActivity = 3;
+            navigateHelp();
 
         } else if (id == R.id.nav_about) {
-            // type here
-            AboutFragment af = new AboutFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.relativeLayout_fragment, af).commit();
-            mCurrentActivity = 4;
+            navigateAbout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -191,4 +177,32 @@ public class DrawerActivity extends AppCompatActivity
         return watchlist;
     }
 
+    public void navigateHome() {
+        BasicFragment bf = new BasicFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, bf).commit();
+        mCurrentActivity = 0;
+    }
+
+    public void navigateWatchlist() {
+        WatchlistFragment wf = new WatchlistFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, wf).commit();
+
+        mCurrentActivity = 1;
+    }
+
+    public void navigateHelp() {
+        HelpFragment hf = new HelpFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, hf).commit();
+        mCurrentActivity = 3;
+    }
+
+    public void navigateAbout() {
+        AboutFragment af = new AboutFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, af).commit();
+        mCurrentActivity = 4;
+    }
 }
