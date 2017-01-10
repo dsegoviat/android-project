@@ -31,6 +31,7 @@ public class DrawerActivity extends AppCompatActivity
     private FilmData filmData;
     private SearchView searchView;
     private List<Film> watchlist;
+    private static boolean firstStart = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,11 @@ public class DrawerActivity extends AppCompatActivity
             filmData.createFilm("BFilm", "Dir2", "United States", 2001, "Tom Hanks", 3);
         }
         //TODO
-
+        if (firstStart) {
+            BasicFragment bf = new BasicFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.relativeLayout_fragment, bf).commit();
+        }
         handleIntent(getIntent());
     }
 
