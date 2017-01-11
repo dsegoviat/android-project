@@ -1,5 +1,6 @@
 package com.example.pr_idi.mydatabaseexample.view;
 
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -12,12 +13,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.model.Film;
 import com.example.pr_idi.mydatabaseexample.model.FilmData;
+import com.example.pr_idi.mydatabaseexample.model.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +36,13 @@ public class DrawerActivity extends AppCompatActivity
     private NavigationView mNavigationView;
     private static int mCurrentActivity = 0;
     private static int mPrevActivity;
-    private FilmData filmData;
+    private FilmData db;
     private SearchView searchView;
     private List<Film> watchlist = new ArrayList<>();
     private static boolean firstStart = true;
+    private Dialog rankDialog;
+    private RecyclerViewAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +62,16 @@ public class DrawerActivity extends AppCompatActivity
         mNavigationView.setNavigationItemSelectedListener(this);
         mNavigationView.getMenu().getItem(mCurrentActivity).setChecked(true);
 
-        filmData = FilmData.getInstance();
-        filmData.init(this);
-        filmData.open();
+        db = FilmData.getInstance();
+        db.init(this);
+        db.open();
 
         //TODO
-        if(filmData.getAllFilms().size() == 0) {
-            filmData.deleteAll();
-            filmData.createFilm("AFilm", "Dir", "Sweden", 1999, "Brad Pitt", 4);
-            filmData.createFilm("CFilm", "Dir", "Germany", 2002, "Nicholas Cage", 5);
-            filmData.createFilm("BFilm", "Dir2", "United States", 2001, "Tom Hanks", 3);
+        if(db.getAllFilms().size() == 0) {
+            db.deleteAll();
+            db.createFilm("AFilm", "Dir", "Sweden", 1999, "Brad Pitt", 4);
+            db.createFilm("CFilm", "Dir", "Germany", 2002, "Nicholas Cage", 5);
+            db.createFilm("BFilm", "Dir2", "United States", 2001, "Tom Hanks", 3);
         }
         //TODO
         if (firstStart) {
@@ -212,5 +222,41 @@ public class DrawerActivity extends AppCompatActivity
     public void checkMenuItem(int pos) {
         uncheckAll();
         mNavigationView.getMenu().getItem(pos).setChecked(true);
+    }
+
+    public void taskRatingPopup(final Film film) {
+        Context mainScreen = this;
+        rankDialog = new Dialog(mainScreen);
+        rankDialog.setContentView(R.layout.rank_dialog);
+        rankDialog.setCancelable(true);
+        final RatingBar ratingBar = (RatingBar) rankDialog.findViewById(R.id.dialog_ratingbar);
+        ratingBar.setRating(film.getCritics_rate()); //Change this
+//        Drawable drawable = ratingBar.getProgressDrawable();
+//        drawable.setColorFilter(Color.parseColor("#f5f8a0"), PorterDuff.Mode.SRC_ATOP);
+        TextView title = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
+        title.setText("Films name");
+        Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int stars = (int) ratingBar.getRating();
+                Log.d("Stars", Integer.toString(stars));
+                film.setCritics_rate(stars);
+                db.deleteFilm(film);
+                db.createFilm(film.getTitle(), film.getDirector(), film.getCountry(),
+                        film.getYear(), film.getProtagonist(), film.getCritics_rate());
+                rankDialog.dismiss();
+                if (adapter != null) {
+                    adapter.onRateChanged();
+                }
+            }
+        });
+        rankDialog.show();
+
+
+    }
+
+    public void setAdapter(RecyclerViewAdapter adapter) {
+        this.adapter = adapter;
     }
 }

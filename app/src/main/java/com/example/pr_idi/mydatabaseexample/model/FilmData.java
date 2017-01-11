@@ -84,30 +84,10 @@ public class FilmData {
         return newFilm;
     }
 
-    public Film restoreFilm(Film film) {
-        ContentValues values = new ContentValues();
-        Log.d("Creating", "Creating " + film.getTitle() + " " + film.getDirector());
-
-        // Add data: Note that this method only provides title and director
-        // Must modify the method to add the full data
-        values.put(MySQLiteHelper.COLUMN_TITLE, film.getTitle());
-        values.put(MySQLiteHelper.COLUMN_DIRECTOR, film.getDirector());
-        values.put(MySQLiteHelper.COLUMN_COUNTRY, film.getCountry());
-        values.put(MySQLiteHelper.COLUMN_YEAR_RELEASE, film.getYear());
-        values.put(MySQLiteHelper.COLUMN_PROTAGONIST, film.getProtagonist());
-        values.put(MySQLiteHelper.COLUMN_CRITICS_RATE, film.getCritics_rate());
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_FILMS,
-                allColumns, MySQLiteHelper.COLUMN_ID + " = " + film.getId(), null,
-                null, null, null);
-        cursor.moveToFirst();
-        Film newFilm = cursorToFilm(cursor);
-
-        // Do not forget to close the cursor
-        cursor.close();
-
-        return newFilm;
-    }
+//    public void updateFilm(Film film) {
+//        long id = film.getId();
+//        database.update(MySQLiteHelper.TABLE_FILMS, film.getCritics_rate())
+//    }
 
     public void deleteFilm(Film film) {
         long id = film.getId();
