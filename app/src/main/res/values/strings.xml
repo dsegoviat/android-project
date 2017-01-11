@@ -54,7 +54,7 @@
     <string name="recover_film_question">Can I recover a film after removing it?</string>
     <string name="recover_film_answer">You can, but just for a few moments after deleting it. A snackbar will appear at the bottom of the screen giving the option of undoing your action.</string>
     <string name="save_film_question">Can I save a film of my interest and access it later?</string>
-    <string name="save_film_answer">Yes. Whenever you find a film you want to save, you can tap the heart button on its right, under the rating, to save it to your watchlist.
+    <string name="save_film_answer">Yes. Whenever you find a film you want to save, you can tap button on its top right, above the rating, to save it to your watchlist.
     You can then access to your watchlist by clicking it on the navigation drawer menu. You can also remove a film from your watchlist by swiping it right or left on your watchlist.</string>
     <string name="title_activity_delete_me">DeleteMe</string>
 </resources>
