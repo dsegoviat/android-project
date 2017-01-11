@@ -57,4 +57,6 @@
     <string name="save_film_answer">Yes. Whenever you find a film you want to save, you can tap button on its top right, above the rating, to save it to your watchlist.
     You can then access to your watchlist by clicking it on the navigation drawer menu. You can also remove a film from your watchlist by swiping it right or left on your watchlist.</string>
     <string name="title_activity_delete_me">DeleteMe</string>
+
+    <string name="watchlist_key">WATCHLIST</string>
 </resources>
