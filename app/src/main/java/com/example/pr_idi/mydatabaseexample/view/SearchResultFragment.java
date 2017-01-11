@@ -30,8 +30,13 @@ public class SearchResultFragment extends BasicFragment {
         feedsList.clear();
         List<Film> allFilms = db.getAllFilms();
         for (int i = 0; i < allFilms.size(); i++) {
-            if(allFilms.get(i).getTitle().toLowerCase().contains(mParam1.toLowerCase())) {
-                feedsList.add(allFilms.get(i));
+            Film current = allFilms.get(i);
+            if (current.getTitle().toLowerCase().contains(mParam1.toLowerCase())) {
+                feedsList.add(current);
+            } else if (current.getDirector().toLowerCase().contains(mParam1.toLowerCase())) {
+                feedsList.add(current);
+            } else if (current.getProtagonist().toLowerCase().contains(mParam1.toLowerCase())) {
+                feedsList.add(current);
             }
         }
         // Show if no results are found
