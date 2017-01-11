@@ -4,9 +4,12 @@ import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,7 +20,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -233,11 +239,16 @@ public class DrawerActivity extends AppCompatActivity
 
     public void taskRatingPopup(final Film film) {
         Context mainScreen = this;
+
         rankDialog = new Dialog(mainScreen);
+        rankDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         rankDialog.setContentView(R.layout.rank_dialog);
+//        rankDialog.setContentView(ratingBar);
         rankDialog.setCancelable(true);
         final RatingBar ratingBar = (RatingBar) rankDialog.findViewById(R.id.dialog_ratingbar);
         ratingBar.setRating(film.getCritics_rate()); //Change this
+//        ratingBar.setLayoutParams(new LinearLayout.LayoutParams(rankDialog);
+
 //        Drawable drawable = ratingBar.getProgressDrawable();
 //        drawable.setColorFilter(Color.parseColor("#f5f8a0"), PorterDuff.Mode.SRC_ATOP);
         TextView title = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);

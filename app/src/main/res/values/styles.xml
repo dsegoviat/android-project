@@ -22,7 +22,8 @@
 
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlActivated">@color/sunsetYellow</item>
-        <item name="colorControlNormal">@color/lightGrey</item>
+        <item name="colorControlNormal">@color/sunsetYellow</item>
+        <item name="colorControlHighlight">@color/sunsetYellow</item>
     </style>
 
 </resources>

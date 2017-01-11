@@ -16,17 +16,20 @@ import android.widget.Toast;
 import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.view.DrawerActivity;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder> {
     private List<Film> filmList;
     private Context mContext;
     private boolean showWatchlistBtn;
+    private WatchlistFilms watchFilms;
 
     public RecyclerViewAdapter(Context context, List<Film> filmList, boolean swb) {
         this.filmList = filmList;
         this.mContext = context;
         this.showWatchlistBtn = swb;
+        this.watchFilms = WatchlistFilms.getInstance();
     }
 
     @Override
@@ -74,31 +77,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         if(showWatchlistBtn) {
-            if(((DrawerActivity) mContext).isInWatchlist(film)) {
-                customViewHolder.addToWatchlist.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_remove, mContext.getApplicationContext().getTheme()));
+            if(watchFilms.isInWatchlist(film)) {
+                customViewHolder.watchlistButton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_remove, mContext.getApplicationContext().getTheme()));
             }
-            customViewHolder.addToWatchlist.setOnClickListener(new View.OnClickListener() {
+            customViewHolder.watchlistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(((DrawerActivity) mContext).isInWatchlist(film)) {
-                        ((DrawerActivity) mContext).removeFromWatchlist(film);
+                    if(watchFilms.isInWatchlist(film)) {
+                        watchFilms.removeFromWatchlist(film);
 
                         Toast toast = Toast.makeText(mContext, "Film removed from watchlist", Toast.LENGTH_SHORT);
                         toast.show();
 
-                        customViewHolder.addToWatchlist.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_add, mContext.getApplicationContext().getTheme()));
+                        customViewHolder.watchlistButton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_add, mContext.getApplicationContext().getTheme()));
                     } else {
-                        ((DrawerActivity) mContext).addToWatchlist(film);
+                        watchFilms.addToWatchlist(film);
 
                         Toast toast = Toast.makeText(mContext, "Film added to watchlist", Toast.LENGTH_SHORT);
                         toast.show();
 
-                        customViewHolder.addToWatchlist.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_remove, mContext.getApplicationContext().getTheme()));
+                        customViewHolder.watchlistButton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_remove, mContext.getApplicationContext().getTheme()));
                     }
                 }
             });
         } else {
-            customViewHolder.addToWatchlist.setVisibility(View.GONE);
+            customViewHolder.watchlistButton.setVisibility(View.GONE);
         }
 
         customViewHolder.filmPuntuacio.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +128,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         protected TextView filmProtagonista;
         protected TextView filmPais;
         protected ImageView filmPuntuacio;
-        protected ImageButton addToWatchlist;
+        protected ImageButton watchlistButton;
 
         public CustomViewHolder(View view) {
             super(view);
@@ -134,7 +137,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.filmProtagonista = (TextView) view.findViewById(R.id.protagonista);
             this.filmPais = (TextView) view.findViewById(R.id.pais);
             this.filmPuntuacio = (ImageView) view.findViewById(R.id.puntuacio);
-            this.addToWatchlist = (ImageButton) view.findViewById(R.id.add_watchlist);
+            this.watchlistButton = (ImageButton) view.findViewById(R.id.add_watchlist);
         }
     }
 
@@ -159,6 +162,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onRateChanged() {
         filmList.clear();
         filmList.addAll(FilmData.getInstance().getAllFilms());
+        Collections.sort(filmList, new FilmComparatorTitle());
         notifyDataSetChanged();
     }
 

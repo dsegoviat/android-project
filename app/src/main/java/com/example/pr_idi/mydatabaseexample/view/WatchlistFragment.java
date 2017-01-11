@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.model.Film;
 import com.example.pr_idi.mydatabaseexample.model.RecyclerViewAdapter;
+import com.example.pr_idi.mydatabaseexample.model.WatchlistFilms;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class WatchlistFragment extends BasicFragment {
     private RecyclerViewAdapter adapter;
     private TextView noSavedFilms;
     private Context parentActivity;
+    private WatchlistFilms watchFilms;
 
     public WatchlistFragment() {
         // Required empty public constructor
@@ -52,8 +54,9 @@ public class WatchlistFragment extends BasicFragment {
         if (view != null) {
             mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
             noSavedFilms = (TextView) view.findViewById(R.id.no_saved_films);
+            watchFilms = WatchlistFilms.getInstance();
 
-            savedFilms = ((DrawerActivity)getActivity()).getWatchlist();
+            savedFilms = watchFilms.getSavedFilms();
 
             if(savedFilms.size() == 0) noSavedFilms.setVisibility(View.VISIBLE);
 
@@ -75,7 +78,7 @@ public class WatchlistFragment extends BasicFragment {
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                     //Remove swiped item from list and notify the RecyclerView
                     ((DrawerActivity)getActivity()).removeFromWatchlist(savedFilms.get(viewHolder.getLayoutPosition()));
-                    savedFilms = ((DrawerActivity)getActivity()).getWatchlist();
+                    savedFilms = watchFilms.getSavedFilms();
                     adapter.refreshFilmsList(savedFilms);
                     if(savedFilms.size() == 0) noSavedFilms.setVisibility(View.VISIBLE);
 
