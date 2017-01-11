@@ -1,10 +1,12 @@
 package com.example.pr_idi.mydatabaseexample.model;
 
+import java.io.Serializable;
+
 /**
  * Film
  * Created by pr_idi on 10/11/16.
  */
-public class Film {
+public class Film implements Serializable {
 
     // Basic film data manipulation class
     // Contains basic information on the film
