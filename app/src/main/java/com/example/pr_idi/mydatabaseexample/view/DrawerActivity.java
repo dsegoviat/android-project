@@ -241,7 +241,7 @@ public class DrawerActivity extends AppCompatActivity
 //        Drawable drawable = ratingBar.getProgressDrawable();
 //        drawable.setColorFilter(Color.parseColor("#f5f8a0"), PorterDuff.Mode.SRC_ATOP);
         TextView title = (TextView) rankDialog.findViewById(R.id.rank_dialog_text1);
-        title.setText("Films name");
+        title.setText(film.getTitle());
         Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
