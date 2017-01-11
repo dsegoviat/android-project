@@ -51,7 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         customViewHolder.filmDirector.setText(Html.fromHtml(director));
         customViewHolder.filmProtagonista.setText(Html.fromHtml(protagonist));
         customViewHolder.filmPais.setText(Html.fromHtml(country));
-        customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(rating) + "/5"));
+        customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(rating)));
 
         if(showWatchlistBtn) {
             customViewHolder.addToWatchlist.setOnClickListener(new View.OnClickListener() {
