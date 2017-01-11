@@ -14,7 +14,6 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.model.Film;
@@ -29,6 +28,7 @@ public class DrawerActivity extends AppCompatActivity
 
     private NavigationView mNavigationView;
     private static int mCurrentActivity = 0;
+    private static int mPrevActivity;
     private FilmData filmData;
     private SearchView searchView;
     private List<Film> watchlist = new ArrayList<>();
@@ -65,6 +65,7 @@ public class DrawerActivity extends AppCompatActivity
         }
         //TODO
         if (firstStart) {
+            checkMenuItem(0);
             BasicFragment bf = new BasicFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(R.id.relativeLayout_fragment, bf).commit();
@@ -139,11 +140,9 @@ public class DrawerActivity extends AppCompatActivity
         } else if (id == R.id.nav_watchlist) {
             navigateWatchlist();
         } else if (id == R.id.nav_add) {
-            mNavigationView.getMenu().getItem(mCurrentActivity).setChecked(true);
             createNewFilm();
         } else if (id == R.id.nav_help) {
             navigateHelp();
-
         } else if (id == R.id.nav_about) {
             navigateAbout();
         }
@@ -151,12 +150,6 @@ public class DrawerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void createNewFilm() {
-        CreateItemFragment cif = new CreateItemFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.relativeLayout_fragment, cif).addToBackStack("home").commit();
     }
 
     public List<Film> getWatchlist() {
@@ -180,29 +173,44 @@ public class DrawerActivity extends AppCompatActivity
     public void navigateHome() {
         BasicFragment bf = new BasicFragment();
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.relativeLayout_fragment, bf).commit();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, bf, "HOME").commit();
         mCurrentActivity = 0;
     }
 
     public void navigateWatchlist() {
         WatchlistFragment wf = new WatchlistFragment();
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.relativeLayout_fragment, wf).commit();
-
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, wf, "WATCH").commit();
         mCurrentActivity = 1;
+    }
+
+    public void createNewFilm() {
+        mPrevActivity = mCurrentActivity;
+        uncheckAll();
+        mNavigationView.getMenu().getItem(2).setChecked(true);
+        CreateItemFragment cif = CreateItemFragment.newInstance(mPrevActivity);
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, cif, "CREATE").addToBackStack("home").commit();
+
+        mCurrentActivity = 2;
     }
 
     public void navigateHelp() {
         HelpFragment hf = new HelpFragment();
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.relativeLayout_fragment, hf).commit();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, hf, "HELP").commit();
         mCurrentActivity = 3;
     }
 
     public void navigateAbout() {
         AboutFragment af = new AboutFragment();
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.relativeLayout_fragment, af).commit();
+        manager.beginTransaction().replace(R.id.relativeLayout_fragment, af, "ABOUT").commit();
         mCurrentActivity = 4;
+    }
+
+    public void checkMenuItem(int pos) {
+        uncheckAll();
+        mNavigationView.getMenu().getItem(pos).setChecked(true);
     }
 }

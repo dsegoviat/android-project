@@ -3,7 +3,7 @@ package com.example.pr_idi.mydatabaseexample.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pr_idi.mydatabaseexample.R;
-import com.example.pr_idi.mydatabaseexample.model.*;
+import com.example.pr_idi.mydatabaseexample.model.FilmData;
 
 public class CreateItemFragment extends Fragment {
+    private static final String ARG_PARAM1 = "param1";
+
     private Context parentActivity;
     private FilmData db;
     private EditText titleInput;
@@ -28,16 +30,29 @@ public class CreateItemFragment extends Fragment {
     private TextView ratingText;
     private Button sendButton;
 
+    private int mPrevActivity;
+
     //BIG TODO: onBackPresed close fragment
 
     public CreateItemFragment() {
 
     }
 
+    public static CreateItemFragment newInstance(int param1) {
+        CreateItemFragment fragment = new CreateItemFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = FilmData.getInstance();
+        if (getArguments() != null) {
+            mPrevActivity = getArguments().getInt(ARG_PARAM1);
+        }
     }
 
     @Override
@@ -108,5 +123,20 @@ public class CreateItemFragment extends Fragment {
                 }
             });
         }
+        if (view != null) {
+            view.setFocusableInTouchMode(true);
+            view.requestFocus();
+            view.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        DrawerActivity dAct = (DrawerActivity) getActivity();
+                        dAct.checkMenuItem(mPrevActivity);
+                    }
+                    return false;
+                }
+            });
+        }
+
     }
 }

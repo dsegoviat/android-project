@@ -12,10 +12,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.view.DrawerActivity;
+
+import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder> {
     private List<Film> filmList;

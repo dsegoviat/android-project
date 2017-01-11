@@ -4,6 +4,7 @@ package com.example.pr_idi.mydatabaseexample.model;
  * FilmData
  * Created by pr_idi on 10/11/16.
  */
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,10 +14,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.attr.country;
-import static android.R.attr.rating;
-import static com.example.pr_idi.mydatabaseexample.R.id.director;
 
 // This class is now a Singleton
 public class FilmData {
