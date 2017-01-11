@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/watchlist_add"
         android:padding="0dp"
-        android:layout_marginLeft="275dp"
+        android:layout_marginLeft="300dp"
         android:layout_alignParentEnd="true"
         android:id="@+id/add_watchlist" />
 

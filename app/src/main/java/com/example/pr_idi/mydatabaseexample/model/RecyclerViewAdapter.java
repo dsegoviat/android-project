@@ -100,6 +100,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         } else {
             customViewHolder.addToWatchlist.setVisibility(View.GONE);
         }
+
+        customViewHolder.starButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerActivity d = (DrawerActivity) mContext;
+                d.taskRatingPopup(film);
+            }
+        });
     }
 
     @Override
@@ -118,6 +126,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         protected TextView filmPais;
         protected ImageView filmPuntuacio;
         protected ImageButton addToWatchlist;
+        protected ImageView starButton;
 
         public CustomViewHolder(View view) {
             super(view);
@@ -127,6 +136,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.filmPais = (TextView) view.findViewById(R.id.pais);
             this.filmPuntuacio = (ImageView) view.findViewById(R.id.puntuacio);
             this.addToWatchlist = (ImageButton) view.findViewById(R.id.add_watchlist);
+            this.starButton = (ImageView) view.findViewById(R.id.rate_star2);
         }
     }
 
@@ -147,4 +157,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         snackbar.show();
         notifyItemRemoved(position);
     }
+
+    public void onRateChanged() {
+        filmList.clear();
+        filmList.addAll(FilmData.getInstance().getAllFilms());
+        notifyDataSetChanged();
+    }
+
+
 }

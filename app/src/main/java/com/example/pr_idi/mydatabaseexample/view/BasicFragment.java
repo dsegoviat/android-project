@@ -1,17 +1,31 @@
 package com.example.pr_idi.mydatabaseexample.view;
 
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.Layout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.pr_idi.mydatabaseexample.R;
@@ -19,6 +33,8 @@ import com.example.pr_idi.mydatabaseexample.model.Film;
 import com.example.pr_idi.mydatabaseexample.model.FilmComparatorTitle;
 import com.example.pr_idi.mydatabaseexample.model.FilmData;
 import com.example.pr_idi.mydatabaseexample.model.RecyclerViewAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,6 +58,7 @@ public class BasicFragment extends Fragment {
     protected FilmData db;
     protected Context parentActivity;
     protected FloatingActionButton mFAB;
+
 
     public BasicFragment() {
 
@@ -88,6 +105,8 @@ public class BasicFragment extends Fragment {
             mLinearLayoutManagerVertical.setOrientation(LinearLayoutManager.VERTICAL);
             mRecyclerView.setLayoutManager(mLinearLayoutManagerVertical);
             adapter = new RecyclerViewAdapter(parentActivity, feedsList, showAddToWatchlistBtn());
+            DrawerActivity d = (DrawerActivity) getActivity();
+            d.setAdapter(adapter);
             mRecyclerView.setAdapter(adapter);
 
             // Hide progressbar once films are loaded
@@ -146,5 +165,7 @@ public class BasicFragment extends Fragment {
     protected boolean showAddToWatchlistBtn() {
         return true;
     }
+
+
 
 }
