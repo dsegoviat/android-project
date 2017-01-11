@@ -161,6 +161,13 @@ public class DrawerActivity extends AppCompatActivity
         return watchlist;
     }
 
+    public boolean isInWatchlist(Film film) {
+        for(int i = 0; i < watchlist.size(); i++) {
+            if(watchlist.get(i).getId() == film.getId()) return true;
+        }
+        return false;
+    }
+
     public List<Film> removeFromWatchlist(Film film) {
         for (int i = 0; i < watchlist.size(); i++) {
             if(watchlist.get(i).getId() == film.getId()) {

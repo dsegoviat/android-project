@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder customViewHolder, int i) {
+    public void onBindViewHolder(final CustomViewHolder customViewHolder, int i) {
         final Film film = filmList.get(i);
 
         //Setting text view title
@@ -51,16 +52,49 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         customViewHolder.filmDirector.setText(Html.fromHtml(director));
         customViewHolder.filmProtagonista.setText(Html.fromHtml(protagonist));
         customViewHolder.filmPais.setText(Html.fromHtml(country));
-        customViewHolder.filmPuntuacio.setText(Html.fromHtml(String.valueOf(rating)));
+        customViewHolder.filmPuntuacio.setVisibility(View.VISIBLE);
+        switch(rating) {
+            case 0:
+                customViewHolder.filmPuntuacio.setVisibility(View.GONE);
+            case 1:
+                customViewHolder.filmPuntuacio.setImageDrawable(mContext.getResources().getDrawable(R.drawable.r1star, mContext.getApplicationContext().getTheme()));
+                break;
+            case 2:
+                customViewHolder.filmPuntuacio.setImageDrawable(mContext.getResources().getDrawable(R.drawable.r2star, mContext.getApplicationContext().getTheme()));
+                break;
+            case 3:
+                customViewHolder.filmPuntuacio.setImageDrawable(mContext.getResources().getDrawable(R.drawable.r3star, mContext.getApplicationContext().getTheme()));
+                break;
+            case 4:
+                customViewHolder.filmPuntuacio.setImageDrawable(mContext.getResources().getDrawable(R.drawable.r4star, mContext.getApplicationContext().getTheme()));
+                break;
+            case 5:
+                customViewHolder.filmPuntuacio.setImageDrawable(mContext.getResources().getDrawable(R.drawable.r5star, mContext.getApplicationContext().getTheme()));
+                break;
+        }
 
         if(showWatchlistBtn) {
+            if(((DrawerActivity) mContext).isInWatchlist(film)) {
+                customViewHolder.addToWatchlist.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_remove, mContext.getApplicationContext().getTheme()));
+            }
             customViewHolder.addToWatchlist.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((DrawerActivity) mContext).addToWatchlist(film);
+                    if(((DrawerActivity) mContext).isInWatchlist(film)) {
+                        ((DrawerActivity) mContext).removeFromWatchlist(film);
 
-                    Toast toast = Toast.makeText(mContext, "Film added to watchlist", Toast.LENGTH_SHORT);
-                    toast.show();
+                        Toast toast = Toast.makeText(mContext, "Film removed from watchlist", Toast.LENGTH_SHORT);
+                        toast.show();
+
+                        customViewHolder.addToWatchlist.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_add, mContext.getApplicationContext().getTheme()));
+                    } else {
+                        ((DrawerActivity) mContext).addToWatchlist(film);
+
+                        Toast toast = Toast.makeText(mContext, "Film added to watchlist", Toast.LENGTH_SHORT);
+                        toast.show();
+
+                        customViewHolder.addToWatchlist.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_remove, mContext.getApplicationContext().getTheme()));
+                    }
                 }
             });
         } else {
@@ -82,7 +116,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         protected TextView filmDirector;
         protected TextView filmProtagonista;
         protected TextView filmPais;
-        protected TextView filmPuntuacio;
+        protected ImageView filmPuntuacio;
         protected ImageButton addToWatchlist;
 
         public CustomViewHolder(View view) {
@@ -91,7 +125,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.filmDirector = (TextView) view.findViewById(R.id.director);
             this.filmProtagonista = (TextView) view.findViewById(R.id.protagonista);
             this.filmPais = (TextView) view.findViewById(R.id.pais);
-            this.filmPuntuacio = (TextView) view.findViewById(R.id.puntuacio);
+            this.filmPuntuacio = (ImageView) view.findViewById(R.id.puntuacio);
             this.addToWatchlist = (ImageButton) view.findViewById(R.id.add_watchlist);
         }
     }
