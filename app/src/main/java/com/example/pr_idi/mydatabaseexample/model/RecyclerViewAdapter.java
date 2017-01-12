@@ -85,14 +85,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 public void onClick(View view) {
                     if(watchFilms.isInWatchlist(film)) {
                         watchFilms.removeFromWatchlist(film);
-
                         Toast toast = Toast.makeText(mContext, "Film removed from watchlist", Toast.LENGTH_SHORT);
                         toast.show();
 
                         customViewHolder.watchlistButton.setImageDrawable(mContext.getResources().getDrawable(R.drawable.watchlist_add, mContext.getApplicationContext().getTheme()));
                     } else {
                         watchFilms.addToWatchlist(film);
-
                         Toast toast = Toast.makeText(mContext, "Film added to watchlist", Toast.LENGTH_SHORT);
                         toast.show();
 

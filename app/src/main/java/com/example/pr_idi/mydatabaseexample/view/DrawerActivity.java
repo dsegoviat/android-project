@@ -4,12 +4,9 @@ import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,10 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -31,6 +26,8 @@ import com.example.pr_idi.mydatabaseexample.R;
 import com.example.pr_idi.mydatabaseexample.model.Film;
 import com.example.pr_idi.mydatabaseexample.model.FilmData;
 import com.example.pr_idi.mydatabaseexample.model.RecyclerViewAdapter;
+import com.example.pr_idi.mydatabaseexample.model.WatchlistFilms;
+import com.example.pr_idi.mydatabaseexample.model.WatchlistSaver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +45,7 @@ public class DrawerActivity extends AppCompatActivity
     private static boolean firstStart = true;
     private Dialog rankDialog;
     private RecyclerViewAdapter adapter;
+    private WatchlistSaver watchSaver;
 
 
     @Override
@@ -71,6 +69,10 @@ public class DrawerActivity extends AppCompatActivity
         db = FilmData.getInstance();
         db.init(this);
         db.open();
+//        watchSaver = WatchlistSaver.getInstance();
+//        watchSaver.init(this);
+//        WatchlistFilms wFilms = WatchlistFilms.getInstance();
+//        wFilms.load();
 
         //TODO
         if(db.getAllFilms().size() == 0) {

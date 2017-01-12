@@ -77,9 +77,9 @@ public class WatchlistFragment extends BasicFragment {
                 @Override
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                     //Remove swiped item from list and notify the RecyclerView
-                    ((DrawerActivity)getActivity()).removeFromWatchlist(savedFilms.get(viewHolder.getLayoutPosition()));
-                    savedFilms = watchFilms.getSavedFilms();
-                    adapter.refreshFilmsList(savedFilms);
+                    watchFilms.removeFromWatchlist(savedFilms.get(viewHolder.getLayoutPosition()));
+//                    adapter.refreshFilmsList(savedFilms);
+                    adapter.notifyDataSetChanged();
                     if(savedFilms.size() == 0) noSavedFilms.setVisibility(View.VISIBLE);
 
                     Toast toast = Toast.makeText(parentActivity, "Removed item from watchlist", Toast.LENGTH_SHORT);
